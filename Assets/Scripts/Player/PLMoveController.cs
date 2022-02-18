@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerControlScript : MonoBehaviour
+public class PLMoveController : MonoBehaviour
 {
     // ‘¬“x
     public GameObject player;
@@ -11,6 +11,15 @@ public class PlayerControlScript : MonoBehaviour
     public Vector3 moveX = new Vector3(1, 0, 0);
     public Vector3 moveY = new Vector3(0, 1, 0);
     bool moveButtonJudge;
+    
+    public enum Body
+    {
+        None,
+        Up,
+        Down,
+        Right,
+        Left
+    }
 
     // Start is called before the first frame update
     void Start()
