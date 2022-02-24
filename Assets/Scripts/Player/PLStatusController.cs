@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PLStatusController : MonoBehaviour
 {
-    
+    private bool isStop;
     
     // Start is called before the first frame update
     void Start()
@@ -16,5 +16,12 @@ public class PLStatusController : MonoBehaviour
     void Update()
     {
         
+    }
+
+    IEnumerator WaitSecond(float Time)
+    {
+        isStop = true;
+        yield return new WaitForSeconds(Time);
+        isStop = false;
     }
 }

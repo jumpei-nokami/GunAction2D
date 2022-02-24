@@ -8,6 +8,7 @@ public abstract class MovingObject : MonoBehaviour
     private float inverseMoveTime;
     private Coroutine _coroutine = null;
 
+
     // Start is called before the first frame update
     protected virtual void Start()
     {

@@ -2151,8 +2151,8 @@ GameObject:
   - component: {fileID: 1554098061}
   - component: {fileID: 1554098054}
   - component: {fileID: 1554098057}
-  - component: {fileID: 1554098060}
   - component: {fileID: 1554098062}
+  - component: {fileID: 1554098060}
   m_Layer: 0
   m_Name: Player_0
   m_TagString: Untagged
@@ -2306,6 +2306,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65a24256dec91ea43a6ae9f95ddfc577, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 1554098062}
 --- !u!61 &1554098061
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2345,6 +2346,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveTime: 0.3
+  horizontal: 0
+  vertical: 0
 --- !u!1 &1572236555
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,6 +11,8 @@ public class Player : MovingObject
         Vertical
     }
 
+    public int horizontal;
+    public int vertical;
     private DirectionState Dstts;
     
     // Start is called before the first frame update
@@ -30,8 +32,8 @@ public class Player : MovingObject
 
     private void Move()
     {
-        var horizontal = (int) (Input.GetAxisRaw("Horizontal"));
-        var vertical = (int) (Input.GetAxisRaw("Vertical"));
+        horizontal = (int) (Input.GetAxisRaw("Horizontal"));
+        vertical = (int) (Input.GetAxisRaw("Vertical"));
         
         if (horizontal == 0 && vertical == 0)
         {
