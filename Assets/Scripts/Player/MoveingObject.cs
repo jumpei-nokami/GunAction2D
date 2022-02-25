@@ -8,11 +8,14 @@ public abstract class MovingObject : MonoBehaviour
     private float inverseMoveTime;
     private Coroutine _coroutine = null;
 
+    public LayerMask blockingLayer;
+    private BoxCollider2D boxCollider;
 
     // Start is called before the first frame update
     protected virtual void Start()
     {
         this.rb2d = GetComponent<Rigidbody2D>();
+        this.boxCollider = GetComponent<BoxCollider2D>();
         inverseMoveTime = 1.0f / moveTime;
     }
 
@@ -31,22 +34,29 @@ public abstract class MovingObject : MonoBehaviour
         _coroutine = null;
     }
     
-    /* 
-    protected bool Move(int xDir, int yDir)
+    /*  */
+    protected bool Move(int xDir, int yDir, out RaycastHit2D hit)
     {
         Vector2 start = transform.position;
         Vector2 end = (start + new Vector2(xDir, yDir));
 
-        if(_coroutine == null) _coroutine = StartCoroutine(SmoothMovement(end));
-        return true;
-    } */
+        this.boxCollider.enabled = false;
+        hit = Physics2D.Linecast(start, end, this.blockingLayer);
+
+        this.boxCollider.enabled = true;
+
+        if (_coroutine == null && hit.transform == null)
+        {
+            _coroutine = StartCoroutine(SmoothMovement(end));
+            return true;
+        }
+        return false;
+    }
 
     protected virtual void AttemptMove(int xDir, int yDir)
     {
-        Vector2 start = transform.position;
-        Vector2 end = (start + new Vector2(xDir, yDir));
-
-        if(_coroutine == null) _coroutine = StartCoroutine(SmoothMovement(end));
+        RaycastHit2D hit;
+        bool canMove = Move(xDir, yDir, out hit);
     }
 
     // Update is called once per frame

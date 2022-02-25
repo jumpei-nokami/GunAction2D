@@ -1506,7 +1506,7 @@ GameObject:
   - component: {fileID: 1490735791}
   - component: {fileID: 1490735790}
   - component: {fileID: 1490735789}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1544,9 +1544,35 @@ CompositeCollider2D:
   m_GeometryType: 0
   m_GenerationType: 0
   m_EdgeRadius: 0
-  m_ColliderPaths: []
+  m_ColliderPaths:
+  - m_Collider: {fileID: 1490735791}
+    m_ColliderPaths:
+    - - X: 60000000
+        Y: 60000000
+      - X: -60000000
+        Y: 60000000
+      - X: -60000000
+        Y: -60000000
+      - X: 60000000
+        Y: -60000000
+    - - X: -50000000
+        Y: -50000000
+      - X: -50000000
+        Y: 50000000
+      - X: 50000000
+        Y: 50000000
+      - X: 50000000
+        Y: -50000000
   m_CompositePaths:
-    m_Paths: []
+    m_Paths:
+    - - {x: 5.999971, y: -6}
+      - {x: 5.999971, y: 6}
+      - {x: -6, y: 5.999971}
+      - {x: -5.999971, y: -6}
+    - - {x: 5, y: -4.9999704}
+      - {x: -5, y: -4.9999704}
+      - {x: -4.9999704, y: 5}
+      - {x: 5, y: 4.9999704}
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.00005
 --- !u!50 &1490735790
@@ -1577,7 +1603,7 @@ TilemapCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1490735787}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -2153,7 +2179,7 @@ GameObject:
   - component: {fileID: 1554098057}
   - component: {fileID: 1554098062}
   - component: {fileID: 1554098060}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2346,6 +2372,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveTime: 0.3
+  blockingLayer:
+    serializedVersion: 2
+    m_Bits: 8
   horizontal: 0
   vertical: 0
 --- !u!1 &1572236555
@@ -2358,7 +2387,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1572236557}
   - component: {fileID: 1572236556}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: MapRender
   m_TagString: Untagged
   m_Icon: {fileID: 0}
