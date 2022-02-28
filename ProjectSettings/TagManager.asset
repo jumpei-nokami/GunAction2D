@@ -11,8 +11,8 @@ TagManager:
   - BlockingLayer
   - Water
   - UI
-  - 
-  - 
+  - Player
+  - Enemy
   - 
   - 
   - 

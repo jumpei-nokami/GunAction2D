@@ -8,7 +8,7 @@ public class PLAnimationController : MonoBehaviour
     //public MovingObject movingobject;
     public Player player;
 
-    enum BodyFront
+    public enum BodyFront
     {
         None,
         Down,
@@ -17,7 +17,7 @@ public class PLAnimationController : MonoBehaviour
         Left
     }
 
-    private BodyFront Fstts;
+    public BodyFront Fstts;
     
     // Start is called before the first frame update
     void Start()
