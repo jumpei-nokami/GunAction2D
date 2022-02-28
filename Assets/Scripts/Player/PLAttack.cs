@@ -53,8 +53,6 @@ public class PLAttack : MonoBehaviour
             //Debug.Log("キー押しています");
             GunAttack(bodyforward);
         }
-
-        StartCoroutine(nameof(AttackTimer));
     }
 
     void GunAttack(Vector3 bodyforward)
@@ -68,12 +66,13 @@ public class PLAttack : MonoBehaviour
         
         Debug.Log("撃ちました");
 
-        hit = Physics2D.Raycast(transform.position, bodyforward, gunRange, 1 << 7);
+        hit = Physics2D.Raycast(transform.position, bodyforward, gunRange, 1 << 6);
 
         if (hit.collider)
         {
             BulletHit();
         }
+        StartCoroutine(nameof(AttackTimer));
     }
 
     void BulletHit()
