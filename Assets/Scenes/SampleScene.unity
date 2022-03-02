@@ -2110,7 +2110,6 @@ GameObject:
   - component: {fileID: 1554098059}
   - component: {fileID: 1554098058}
   - component: {fileID: 1554098061}
-  - component: {fileID: 1554098054}
   - component: {fileID: 1554098057}
   - component: {fileID: 1554098062}
   - component: {fileID: 1554098060}
@@ -2121,22 +2120,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1554098054
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1554098053}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a75a628983c844b4fadefb3111cecb7e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 1554098053}
-  speed: 5
-  moveX: {x: 1, y: 0, z: 0}
-  moveY: {x: 0, y: 1, z: 0}
 --- !u!212 &1554098055
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2216,8 +2199,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1554098053}
   _plAnimationController: {fileID: 1554098060}
-  attackInterval: 0.5
+  gunInterval: 0.5
   gunRange: 10
+  gunDamege: 15
+  knifeInterval: 0.3
+  knifeRange: 1
+  knifeDamege: 5
 --- !u!50 &1554098058
 Rigidbody2D:
   serializedVersion: 4
