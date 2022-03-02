@@ -11,11 +11,22 @@ public class PLAttack : MonoBehaviour
 
     [SerializeField]
     private PLAnimationController _plAnimationController;
+    
     [SerializeField]
-    private float attackInterval = 0.5f;
+    private float gunInterval = 0.5f;
     [SerializeField]
     private float gunRange = 10f;
+    [SerializeField]
+    private int gunDamege = 15;
+    
+    [SerializeField]
+    private float knifeInterval = 0.3f;
+    [SerializeField]
+    private float knifeRange = 1f;
+    [SerializeField]
+    private int knifeDamege = 5;
 
+    private float attackInterval;
     private bool attackTimerIsActive = false;
     private RaycastHit2D hit;
     private WaitForSeconds attackIntervalWait;
@@ -25,7 +36,6 @@ public class PLAttack : MonoBehaviour
     void Start()
     {
         bodyforward = new Vector3(0, -1, 0);
-        attackIntervalWait = new WaitForSeconds(attackInterval);
     }
 
     // Update is called once per frame
@@ -48,14 +58,20 @@ public class PLAttack : MonoBehaviour
             bodyforward = new Vector3(-1, 0, 0);
         }
         
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Z))
         {
             //Debug.Log("キー押しています");
-            GunAttack(bodyforward);
+            attackIntervalWait = new WaitForSeconds(gunInterval);
+            Attack(bodyforward, gunRange, gunDamege);
+        }
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            attackIntervalWait = new WaitForSeconds(knifeInterval);
+            Attack(bodyforward, knifeRange, knifeDamege);
         }
     }
 
-    void GunAttack(Vector3 bodyforward)
+    void Attack(Vector3 bodyforward, float range, int damege)
     {
         
         if (attackTimerIsActive)
@@ -66,18 +82,19 @@ public class PLAttack : MonoBehaviour
         
         Debug.Log("撃ちました");
 
-        hit = Physics2D.Raycast(transform.position, bodyforward, gunRange, 1 << 6);
+        hit = Physics2D.Raycast(transform.position, bodyforward, range, 1 << 6);
 
         if (hit.collider)
         {
-            BulletHit();
+            BulletHit(damege);
         }
         StartCoroutine(nameof(AttackTimer));
     }
 
-    void BulletHit()
+    void BulletHit(int damege)
     {
-        Debug.Log("弾が「" + hit.collider.gameObject.name + "」命中！");
+        Debug.Log("攻撃が「" + hit.collider.gameObject.name + "」命中！");
+        Debug.Log(""+ damege +"ダメージを与えた");
     }
 
     IEnumerator AttackTimer()
