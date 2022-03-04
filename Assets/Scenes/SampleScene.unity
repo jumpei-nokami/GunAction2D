@@ -1468,22 +1468,6 @@ CompositeCollider2D:
         Y: 50000000
       - X: 50000000
         Y: -50000000
-    - - X: 30000100
-        Y: -41
-      - X: 30000100
-        Y: 10000041
-      - X: 30000041
-        Y: 10000100
-      - X: 19999959
-        Y: 10000100
-      - X: 19999900
-        Y: 10000041
-      - X: 19999900
-        Y: -41
-      - X: 19999959
-        Y: -100
-      - X: 30000041
-        Y: -100
   m_CompositePaths:
     m_Paths:
     - - {x: 5.999971, y: -6}
@@ -1494,10 +1478,6 @@ CompositeCollider2D:
       - {x: -5, y: -4.9999704}
       - {x: -4.9999704, y: 5}
       - {x: 5, y: 4.9999704}
-    - - {x: 2.9999747, y: -0.00001}
-      - {x: 2.9999747, y: 1.00001}
-      - {x: 1.99999, y: 0.9999748}
-      - {x: 2.0000253, y: -0.00001}
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.00005
 --- !u!50 &1490735790
@@ -1824,16 +1804,6 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
-  - first: {x: 2, y: 0, z: 0}
-    second:
-      serializedVersion: 2
-      m_TileIndex: 0
-      m_TileSpriteIndex: 0
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_TileObjectToInstantiateIndex: 65535
-      dummyAlignment: 0
-      m_AllTileFlags: 1073741825
   - first: {x: 5, y: 0, z: 0}
     second:
       serializedVersion: 2
@@ -2046,13 +2016,13 @@ Tilemap:
       m_AllTileFlags: 1073741825
   m_AnimatedTiles: {}
   m_TileAssetArray:
-  - m_RefCount: 45
+  - m_RefCount: 44
     m_Data: {fileID: 11400000, guid: 9a2bfa0c10341624cbef2b28629b0204, type: 2}
   m_TileSpriteArray:
-  - m_RefCount: 45
+  - m_RefCount: 44
     m_Data: {fileID: 1441677091247043913, guid: b69035408d4ad90469ba4db3780ceb9d, type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 45
+  - m_RefCount: 44
     m_Data:
       e00: 1
       e01: 0
@@ -2071,7 +2041,7 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 45
+  - m_RefCount: 44
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
@@ -2359,6 +2329,7 @@ GameObject:
   - component: {fileID: 2146805150}
   - component: {fileID: 2146805149}
   - component: {fileID: 2146805151}
+  - component: {fileID: 2146805152}
   m_Layer: 6
   m_Name: EnemySample
   m_TagString: Enemy
@@ -2425,7 +2396,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2146805148}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3, y: -0, z: 0}
+  m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2457,3 +2428,15 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &2146805152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2146805148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb2840c624e6c0e408af459c5b2844d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

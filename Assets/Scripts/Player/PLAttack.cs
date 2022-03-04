@@ -1,9 +1,5 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngineInternal;
-using Vector2 = System.Numerics.Vector2;
 
 public class PLAttack : MonoBehaviour
 {
@@ -58,7 +54,7 @@ public class PLAttack : MonoBehaviour
             bodyforward = new Vector3(-1, 0, 0);
         }
         
-        if (Input.GetKey(KeyCode.Z))
+        if (Input.GetKeyDown(KeyCode.Z))
         {
             //Debug.Log("キー押しています");
             attackIntervalWait = new WaitForSeconds(gunInterval);
@@ -71,30 +67,35 @@ public class PLAttack : MonoBehaviour
         }
     }
 
-    void Attack(Vector3 bodyforward, float range, int damege)
+    void Attack(Vector3 bodyforward, float range, int damage)
     {
         
         if (attackTimerIsActive)
         {
-            Debug.Log("撃てません");
+            //Debug.Log("撃てません");
             return;
         }
         
-        Debug.Log("撃ちました");
+        //Debug.Log("撃ちました");
 
         hit = Physics2D.Raycast(transform.position, bodyforward, range, 1 << 6);
 
         if (hit.collider)
         {
-            BulletHit(damege);
+            var damageconfirmsed = hit.collider.gameObject.GetComponent<IDamageAble>();
+            if (damageconfirmsed != null)
+            {
+                damageconfirmsed.AddDamage(damage);
+            }
+            //BulletHit(damage);
         }
         StartCoroutine(nameof(AttackTimer));
     }
 
-    void BulletHit(int damege)
+    void BulletHit(int damage)
     {
         Debug.Log("攻撃が「" + hit.collider.gameObject.name + "」命中！");
-        Debug.Log(""+ damege +"ダメージを与えた");
+        Debug.Log(""+ damage +"ダメージを与えた");
     }
 
     IEnumerator AttackTimer()
