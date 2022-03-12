@@ -3,7 +3,7 @@ using UnityEngine;
 
 public abstract class MovingObject : MonoBehaviour
 {
-    [SerializeField] private float moveTime = 0.1f;
+    [SerializeField] private float moveTime = 0.2f;
     protected Rigidbody2D rb2d;
     private float inverseMoveTime;
     private Coroutine _coroutine = null;

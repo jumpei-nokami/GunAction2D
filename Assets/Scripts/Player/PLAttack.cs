@@ -85,6 +85,7 @@ public class PLAttack : MonoBehaviour
             var damageconfirmsed = hit.collider.gameObject.GetComponent<IDamageAble>();
             if (damageconfirmsed != null)
             {
+                Debug.Log("攻撃が「" + hit.collider.gameObject.name + "」命中！");
                 damageconfirmsed.AddDamage(damage);
             }
             //BulletHit(damage);
@@ -94,7 +95,7 @@ public class PLAttack : MonoBehaviour
 
     void BulletHit(int damage)
     {
-        Debug.Log("攻撃が「" + hit.collider.gameObject.name + "」命中！");
+        
         Debug.Log(""+ damage +"ダメージを与えた");
     }
 

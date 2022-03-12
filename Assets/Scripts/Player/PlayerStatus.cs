@@ -22,4 +22,9 @@ public class PlayerStatus : MonoBehaviour, IDamageAble
     {
         
     }
+    
+    private void OnGUI()
+    {
+        GUILayout.Label($"PlayerHP:{mHP}");
+    }
 }
