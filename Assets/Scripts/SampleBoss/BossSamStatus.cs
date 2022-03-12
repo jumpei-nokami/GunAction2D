@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,7 @@ public class BossSamStatus : MonoBehaviour, IDamageAble
     
     void IDamageAble.AddDamage(int damage)
     {
+        //Debug.Log("ダメージを与える");
         bHP -= damage;
     }
     
@@ -20,6 +22,11 @@ public class BossSamStatus : MonoBehaviour, IDamageAble
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("残りHPは" + bHP);
+        
+    }
+
+    private void OnGUI()
+    {
+        GUI.Label(new Rect(0, 20, 100, 30),$"EnemyHP:{bHP}");
     }
 }
