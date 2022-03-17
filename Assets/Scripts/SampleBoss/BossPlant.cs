@@ -11,7 +11,10 @@ public class BossPlant : MonoBehaviour, IDamageAble
     private float cooltime;
     private int randomInt;
     System.Random random = new System.Random();
+
     private GameObject leaf_prefab;
+    private GameObject whip_prefab;
+    private GameObject trap_prefab;
 
     public GameObject player;
     
@@ -30,18 +33,18 @@ public class BossPlant : MonoBehaviour, IDamageAble
         Warp,
         Leaf,
         Thorn,
-        Root,
+        Eat,
         Whip
     }
     private MovePlant _movePlant = MovePlant.None;
     
     void IDamageAble.AddDamage(int damage)
     {
-        /*
+        /**/
         if (_invincible)
         {
             return;
-        }*/
+        }
         Debug.Log("ダメージを与える");
         bHP -= damage;
     }
@@ -50,6 +53,8 @@ public class BossPlant : MonoBehaviour, IDamageAble
     void Start()
     {
         leaf_prefab = (GameObject)Resources.Load("Prefab/Leaf");
+        whip_prefab = (GameObject)Resources.Load("Prefab/Whip");
+        trap_prefab = (GameObject)Resources.Load("Prefab/Trap");
     }
 
     // Update is called once per frame
@@ -88,8 +93,8 @@ public class BossPlant : MonoBehaviour, IDamageAble
                 case MovePlant.Thorn:
                     _moving = StartCoroutine(ThornAttack());
                     break;
-                case MovePlant.Root:
-                    _moving = StartCoroutine(RootAttack());
+                case MovePlant.Eat:
+                    _moving = StartCoroutine(EatAttack());
                     break;
                 case MovePlant.Whip:
                     _moving = StartCoroutine(WhipAttack());
@@ -119,7 +124,7 @@ public class BossPlant : MonoBehaviour, IDamageAble
                 _movePlant = MovePlant.Thorn;
                 break;
             case 6:
-                _movePlant = MovePlant.Root;
+                _movePlant = MovePlant.Eat;
                 break;
             case 7:
             case 8:
@@ -132,9 +137,30 @@ public class BossPlant : MonoBehaviour, IDamageAble
     IEnumerator WarpMove()
     {
         Debug.Log(_movePlant);
-        yield return null;
+        int warptimes = random.Next(1, 4);
+        for(int i = 0; i <= warptimes; i++)
+        {
+            StartCoroutine(Warp());
+            yield return new WaitForSeconds(0.3f);
+        }
         _movePlant = MovePlant.None;
         _moving = null;
+    }
+
+    IEnumerator Warp()
+    {
+        _invincible = true;
+        this.GetComponent<SpriteRenderer>().color = Color.gray;
+        yield return new WaitForSeconds(0.2f);
+        //this.gameObject.SetActive(false);
+        this.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, 0);
+        randomInt = random.Next(-1, 2);
+        this.transform.position = new Vector3(randomInt * 2,3);
+        yield return new WaitForSeconds(0.1f);
+        //this.gameObject.SetActive(true);
+        yield return new WaitForSeconds(0.2f);
+        _invincible = false;
+        this.GetComponent<SpriteRenderer>().color = Color.black;
     }
     
     IEnumerator LeafAttack()
@@ -148,12 +174,13 @@ public class BossPlant : MonoBehaviour, IDamageAble
         
         for (int i = 0; i < spawntimes; i++)
         {
-            randomInt = random.Next(-2, 3);
-            int spawn = (int)player.transform.position.x + randomInt;
-            if (spawn > 5) spawn = 10 - spawn;
-            if (spawn < -5) spawn = -10 - spawn;
+            int side = random.Next(0, 2);
+            randomInt = random.Next(-1, 2);
+            int spawn = (int)player.transform.position.y + randomInt;
+            if (spawn > 2) spawn = 2;
+            if (spawn < -5) spawn = -5;
             
-            GameObject leaf_instance = (GameObject) Instantiate(leaf_prefab, new Vector3(spawn, 2.0f, 0.0f), Quaternion.identity);
+            GameObject leaf_instance = (GameObject) Instantiate(leaf_prefab, new Vector3(-5.0f + 10 * side, spawn, 0.0f), Quaternion.identity);
             yield return new WaitForSeconds(0.5f);
         }
         _movePlant = MovePlant.None;
@@ -168,10 +195,14 @@ public class BossPlant : MonoBehaviour, IDamageAble
         _moving = null;
     }
 
-    IEnumerator RootAttack()
+    IEnumerator EatAttack()
     {
         Debug.Log(_movePlant);
-        yield return null;
+        Vector3 spawn = new Vector3((int)player.transform.position.x, (int)player.transform.position.y + 2.0f, 0);
+        if (spawn.x >= 5) spawn -= new Vector3(0, 1f, 0);
+        if (spawn.x <= -5) spawn += new Vector3(0, 1f, 0);
+        GameObject trap_instance = (GameObject)Instantiate(trap_prefab, spawn, Quaternion.identity);
+        yield return new WaitForSeconds(2f);
         _movePlant = MovePlant.None;
         _moving = null;
     }
@@ -179,7 +210,22 @@ public class BossPlant : MonoBehaviour, IDamageAble
     IEnumerator WhipAttack()
     {
         Debug.Log(_movePlant);
-        yield return null;
+        int spawntimes = 2;
+        if (_bossState != BossState.First)
+        {
+            spawntimes = 3;
+        }
+
+        for (int i = 0; i < spawntimes; i++)
+        {
+            randomInt = random.Next(-1, 2);
+            int spawn = (int)player.transform.position.x + randomInt;
+            if (spawn > 5) spawn = 10 - spawn;
+            if (spawn < -5) spawn = -10 - spawn;
+
+            GameObject whip_instance = (GameObject)Instantiate(whip_prefab, new Vector3(spawn, 2.0f, 0.0f), Quaternion.identity);
+            yield return new WaitForSeconds(0.5f);
+        }
         _movePlant = MovePlant.None;
         _moving = null;
     }
