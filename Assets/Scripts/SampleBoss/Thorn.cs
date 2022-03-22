@@ -1,32 +1,31 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Leaf : MonoBehaviour
+public class Thorn : MonoBehaviour
 {
-    [SerializeField] private float speed = 4.0f;
-    private Rigidbody2D rb2d;
-    private int damage = 5;
-    private int direction;
-
+    private int damage = 15;
+    
     // Start is called before the first frame update
     void Start()
     {
-        rb2d = GetComponent<Rigidbody2D>();
-        if (0 - (int)this.transform.position.x >= 0) direction = 1;
-        if (0 - (int)this.transform.position.x < 0) direction = -1;
+        StartCoroutine(DestroyTime());
     }
 
     // Update is called once per frame
     void Update()
     {
-        rb2d.MovePosition(transform.position += transform.right * direction * Time.fixedDeltaTime * speed);
+        
     }
 
+    IEnumerator DestroyTime()
+    {
+        yield return new WaitForSeconds(0.5f);
+        Destroy(this.gameObject);
+    }
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("Leaf命中");
+        Debug.Log("Thorn命中");
         var damageconfirmsed = other.gameObject.GetComponent<IDamageAble>();
         if (damageconfirmsed != null)
         {

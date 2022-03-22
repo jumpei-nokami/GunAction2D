@@ -14,6 +14,7 @@ public class BossPlant : MonoBehaviour, IDamageAble
 
     private GameObject leaf_prefab;
     private GameObject whip_prefab;
+    private GameObject Thorn_prefab;
     private GameObject trap_prefab;
 
     public GameObject player;
@@ -54,6 +55,7 @@ public class BossPlant : MonoBehaviour, IDamageAble
     {
         leaf_prefab = (GameObject)Resources.Load("Prefab/Leaf");
         whip_prefab = (GameObject)Resources.Load("Prefab/Whip");
+        Thorn_prefab = (GameObject)Resources.Load("Prefab/Thorn");
         trap_prefab = (GameObject)Resources.Load("Prefab/Trap");
     }
 
@@ -108,28 +110,57 @@ public class BossPlant : MonoBehaviour, IDamageAble
     {
         Debug.Log(_movePlant);
         yield return new WaitForSeconds(cooltime);
-        randomInt = random.Next(0, 9);
-        switch (randomInt)
+        Vector3 posPL = player.transform.position;
+        Vector3 posEN = this.transform.position;
+        float distance = Vector3.Distance(posPL, posEN);
+        randomInt = random.Next(0, 10);
+        if (distance > 2.0f)
         {
-            case 0:
-            case 1:
-                _movePlant = MovePlant.Warp;
-                break;
-            case 2:
-            case 3:
-                _movePlant = MovePlant.Leaf;
-                break;
-            case 4:
-            case 5:
-                _movePlant = MovePlant.Thorn;
-                break;
-            case 6:
-                _movePlant = MovePlant.Eat;
-                break;
-            case 7:
-            case 8:
-                _movePlant = MovePlant.Whip;
-                break;
+            switch (randomInt)
+            {
+                case 0:
+                case 1:
+                    _movePlant = MovePlant.Warp;
+                    break;
+                case 2:
+                case 3:
+                    _movePlant = MovePlant.Eat;
+                    break;
+                case 4:
+                case 5:
+                case 6:
+                    _movePlant = MovePlant.Leaf;
+                    break;
+                case 7:
+                case 8:
+                case 9:
+                    _movePlant = MovePlant.Whip;
+                    break;
+            }
+        }
+        else
+        {
+            switch (randomInt)
+            {
+                case 0:
+                case 1:
+                    _movePlant = MovePlant.Warp;
+                    break;
+                case 2:
+                case 3:
+                    _movePlant = MovePlant.Leaf;
+                    break;
+                case 4:
+                case 5:
+                    _movePlant = MovePlant.Whip;
+                    break;
+                case 6:
+                case 7:
+                case 8:
+                case 9:
+                    _movePlant = MovePlant.Thorn;
+                    break;
+            }
         }
         _moving = null;
     }
@@ -152,12 +183,12 @@ public class BossPlant : MonoBehaviour, IDamageAble
         _invincible = true;
         this.GetComponent<SpriteRenderer>().color = Color.gray;
         yield return new WaitForSeconds(0.2f);
-        //this.gameObject.SetActive(false);
-        this.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, 0);
+        this.gameObject.SetActive(false);
+        //this.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, 0);
         randomInt = random.Next(-1, 2);
-        this.transform.position = new Vector3(randomInt * 2,3);
+        this.transform.position = new Vector3(randomInt * 3,3);
         yield return new WaitForSeconds(0.1f);
-        //this.gameObject.SetActive(true);
+        this.gameObject.SetActive(true);
         yield return new WaitForSeconds(0.2f);
         _invincible = false;
         this.GetComponent<SpriteRenderer>().color = Color.black;
@@ -190,7 +221,12 @@ public class BossPlant : MonoBehaviour, IDamageAble
     IEnumerator ThornAttack()
     {
         Debug.Log(_movePlant);
-        yield return null;
+        this.GetComponent<SpriteRenderer>().color = Color.yellow;
+        yield return new WaitForSeconds(0.5f);
+        Vector3 spawn = new Vector3((this.transform.position.x), 0.2f, 0);
+        GameObject Thorn_instance = (GameObject) Instantiate(Thorn_prefab, spawn, Quaternion.identity);
+        this.GetComponent<SpriteRenderer>().color = Color.black;
+        yield return new WaitForSeconds(1f);
         _movePlant = MovePlant.None;
         _moving = null;
     }
@@ -223,7 +259,7 @@ public class BossPlant : MonoBehaviour, IDamageAble
             if (spawn > 5) spawn = 10 - spawn;
             if (spawn < -5) spawn = -10 - spawn;
 
-            GameObject whip_instance = (GameObject)Instantiate(whip_prefab, new Vector3(spawn, 2.0f, 0.0f), Quaternion.identity);
+            GameObject whip_instance = (GameObject)Instantiate(whip_prefab, new Vector3(spawn, 3.0f, 0.0f), Quaternion.identity);
             yield return new WaitForSeconds(0.5f);
         }
         _movePlant = MovePlant.None;
