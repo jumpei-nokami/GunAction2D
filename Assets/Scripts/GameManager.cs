@@ -2,26 +2,18 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager instance;
-
-    [HideInInspector] public bool playersTurn = true;
-    private bool wait;
+    public PlayerStatus player;
+    public BossPlant boss;
 
     // Start is called before the first frame update
     private void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else if(instance != this)
-        {
-            Destroy(gameObject);
-        }
-        DontDestroyOnLoad(gameObject);
+        //player = GetComponent<PlayerStatus>();
+        //boss = GetComponent<BossPlant>();
     }
 
     void Start()
@@ -32,11 +24,37 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (playersTurn || wait)
+        if (player.mHP <= 0)
         {
-            return;
+            GameOver();
+        }
+        else if (boss.bHP <= 0)
+        {
+            GameClear();
         }
 
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            GameEnd();
+        }
     }
 
+    public void GameOver()
+    {
+        SceneManager.LoadScene("GameOver");
+    }
+
+    public void GameClear()
+    {
+        SceneManager.LoadScene("GameClear");
+    }
+    
+    public void GameEnd()
+    {
+        #if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+        #elif UNITY_STANDALONE
+            UnityEngine.Application.Quit();
+        #endif
+    }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class BossSamStatus : MonoBehaviour, IDamageAble
 {
-    private int bHP = 500;
+    public int bHP = 500;
     
     void IDamageAble.AddDamage(int damage)
     {

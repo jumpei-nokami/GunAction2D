@@ -5,7 +5,7 @@ using Random = System.Random;
 
 public class BossPlant : MonoBehaviour, IDamageAble
 {
-    private int bHP = 500;
+    public int bHP = 500;
     private bool _invincible = false;
     private Coroutine _moving = null;
     private float cooltime;
