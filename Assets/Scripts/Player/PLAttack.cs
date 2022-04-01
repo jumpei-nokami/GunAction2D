@@ -78,7 +78,7 @@ public class PLAttack : MonoBehaviour
         
         //Debug.Log("撃ちました");
 
-        hit = Physics2D.Raycast(transform.position, bodyforward, range, 1 << 6);
+        hit = Physics2D.Raycast(transform.position, bodyforward, range, 1 << 8);
 
         if (hit.collider)
         {

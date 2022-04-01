@@ -3,12 +3,13 @@ using UnityEngine;
 
 public abstract class MovingObject : MonoBehaviour
 {
-    [SerializeField] private float moveTime = 0.2f;
+    public float moveTime = 0.25f;
+
     protected Rigidbody2D rb2d;
     private float inverseMoveTime;
     private Coroutine _coroutine = null;
 
-    public LayerMask blockingLayer;
+    private LayerMask blockingLayer = 1 << 8 | 1 << 10;
     private BoxCollider2D boxCollider;
 
     // Start is called before the first frame update
@@ -47,6 +48,7 @@ public abstract class MovingObject : MonoBehaviour
 
         if (_coroutine == null && hit.transform == null)
         {
+            inverseMoveTime = 1.0f / moveTime;
             _coroutine = StartCoroutine(SmoothMovement(end));
             return true;
         }
