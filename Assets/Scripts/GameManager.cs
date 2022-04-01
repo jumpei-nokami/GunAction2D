@@ -7,7 +7,6 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
-    public float turnDelay = 0.1f;
     [HideInInspector] public bool playersTurn = true;
     private bool wait;
 
@@ -38,15 +37,6 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        StartCoroutine(WaitTurn());
     }
 
-    IEnumerator WaitTurn()
-    {
-        wait = true;
-        yield return new WaitForSeconds(turnDelay);
-        yield return new WaitForSeconds(turnDelay);
-        playersTurn = true;
-        wait = false;
-    }
 }

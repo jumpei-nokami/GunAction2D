@@ -74,7 +74,11 @@ public class Player : MovingObject
             }
         }
 
-        base.AttemptMove(horizontal, vertical);
+        if (!Input.GetKey(KeyCode.LeftShift))
+        {
+            base.AttemptMove(horizontal, vertical);
+        }
+        
     }
 
     protected override void AttemptMove(int xDir, int yDir)

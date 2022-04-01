@@ -16,6 +16,7 @@ public class BossPlant : MonoBehaviour, IDamageAble
     private GameObject whip_prefab;
     private GameObject Thorn_prefab;
     private GameObject trap_prefab;
+    private GameObject counter_prefab;
 
     public GameObject player;
     
@@ -57,6 +58,7 @@ public class BossPlant : MonoBehaviour, IDamageAble
         whip_prefab = (GameObject)Resources.Load("Prefab/Whip");
         Thorn_prefab = (GameObject)Resources.Load("Prefab/Thorn");
         trap_prefab = (GameObject)Resources.Load("Prefab/Trap");
+        counter_prefab = (GameObject)Resources.Load("Prefab/CounterArea");
     }
 
     // Update is called once per frame
@@ -110,11 +112,8 @@ public class BossPlant : MonoBehaviour, IDamageAble
     {
         Debug.Log(_movePlant);
         yield return new WaitForSeconds(cooltime);
-        Vector3 posPL = player.transform.position;
-        Vector3 posEN = this.transform.position;
-        float distance = Vector3.Distance(posPL, posEN);
         randomInt = random.Next(0, 10);
-        if (distance > 2.0f)
+        if (player.transform.position.y <= 0f)
         {
             switch (randomInt)
             {
@@ -183,13 +182,10 @@ public class BossPlant : MonoBehaviour, IDamageAble
         _invincible = true;
         this.GetComponent<SpriteRenderer>().color = Color.gray;
         yield return new WaitForSeconds(0.2f);
-        this.gameObject.SetActive(false);
-        //this.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, 0);
+        this.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, 0);
         randomInt = random.Next(-1, 2);
         this.transform.position = new Vector3(randomInt * 3,3);
-        yield return new WaitForSeconds(0.1f);
-        this.gameObject.SetActive(true);
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.3f);
         _invincible = false;
         this.GetComponent<SpriteRenderer>().color = Color.black;
     }
@@ -223,7 +219,11 @@ public class BossPlant : MonoBehaviour, IDamageAble
         Debug.Log(_movePlant);
         this.GetComponent<SpriteRenderer>().color = Color.yellow;
         yield return new WaitForSeconds(0.5f);
-        Vector3 spawn = new Vector3((this.transform.position.x), 0.2f, 0);
+        Vector3 spawn = new Vector3((this.transform.position.x), 1f, 0);
+        var counter_instarce = Instantiate(counter_prefab, spawn, Quaternion.identity);
+        counter_instarce.transform.localScale = new Vector3(3, 3, 1);
+        this.GetComponent<SpriteRenderer>().color = Color.blue;
+        yield return new WaitForSeconds(0.5f);
         GameObject Thorn_instance = (GameObject) Instantiate(Thorn_prefab, spawn, Quaternion.identity);
         this.GetComponent<SpriteRenderer>().color = Color.black;
         yield return new WaitForSeconds(1f);

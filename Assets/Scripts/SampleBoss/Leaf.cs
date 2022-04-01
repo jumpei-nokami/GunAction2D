@@ -26,7 +26,7 @@ public class Leaf : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("Leaf命中");
+        //Debug.Log("Leaf命中");
         var damageconfirmsed = other.gameObject.GetComponent<IDamageAble>();
         if (damageconfirmsed != null)
         {
