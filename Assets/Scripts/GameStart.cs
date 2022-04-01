@@ -1,16 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class PlayerStatus : MonoBehaviour, IDamageAble
+public class GameStart : MonoBehaviour
 {
-    public int mHP = 100;
-    
-    void IDamageAble.AddDamage(int damage)
-    {
-        mHP -= damage;
-    }
-    
     // Start is called before the first frame update
     void Start()
     {
@@ -22,9 +16,9 @@ public class PlayerStatus : MonoBehaviour, IDamageAble
     {
         
     }
-    
-    private void OnGUI()
+
+    public void BattleStart()
     {
-        GUILayout.Label($"PlayerHP:{mHP}");
+        SceneManager.LoadScene("SampleScene");
     }
 }

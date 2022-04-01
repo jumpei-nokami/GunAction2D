@@ -21,7 +21,8 @@ public class Leaf : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        rb2d.MovePosition(transform.position += transform.right * direction * Time.fixedDeltaTime * speed);
+        //rb2d.MovePosition(transform.position += transform.right * direction * Time.fixedDeltaTime * speed);
+        transform.position += transform.right * direction * Time.deltaTime * speed;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
